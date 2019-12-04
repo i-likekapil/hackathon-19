@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                         }
 */
-                        read(pic,firebaseAuth.getCurrentUser().getEmail()+"001");
+                        read(pic,document.get("project_id")+"001");
 
                         t.addView(cd);
                     }
@@ -387,6 +387,7 @@ System.out.println("Local se hua READ " );
                 @Override
                 public void onSuccess(byte[] bytes) {
                     bit = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
                     dp.setImageBitmap(bit);
                     System.out.println("Online se hua READ " );
 

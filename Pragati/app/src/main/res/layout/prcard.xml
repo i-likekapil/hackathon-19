@@ -30,10 +30,12 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="367dp"
-            android:layout_height="136dp"
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
             android:layout_marginTop="5dp"
+            android:adjustViewBounds="false"
             android:contentDescription="@string/description"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.103"
             app:layout_constraintStart_toStartOf="parent"
