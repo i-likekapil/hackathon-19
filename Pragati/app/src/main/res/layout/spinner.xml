@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="16dp"
+    android:gravity="center"
+    android:textColor="@android:color/holo_blue_dark"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+
+    />
+
+
+<!--
+mere me suggestions nahi aa rahi
+code type karte waqt
+tere me aa rahi hai kya dekh?
+
+kahan h?
+yhi pr ahi apun
+suggestion jo wo apne aap type kr deta hai?
+haan
+dekhta hoon
+
+kahan dekh raha hai?
+
+dusri xml file pr toh kaam kr rha hai
+
+-->

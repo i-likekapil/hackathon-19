@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1013841238055",
+    "firebase_url": "https://pragati-2ed92.firebaseio.com",
+    "project_id": "pragati-2ed92",
+    "storage_bucket": "pragati-2ed92.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013841238055:android:32d6f0d2e48bc155dfd602",
+        "android_client_info": {
+          "package_name": "com.hackathon.pragati"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1013841238055-fh4o9a3a2as8c281d5alj65d0i9nt47l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hackathon.pragati",
+            "certificate_hash": "c02b098a50f3788485181a8e3132416d923cdd60"
+          }
+        },
+        {
+          "client_id": "1013841238055-kncs82b6rm77q999dskjk8pafedv2f0s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsBw_BOCfn0480wTGUQWWp1zPPVcm-gr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1013841238055-kncs82b6rm77q999dskjk8pafedv2f0s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

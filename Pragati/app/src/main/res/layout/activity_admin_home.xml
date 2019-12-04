@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminHome">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/layout">
+
+
+                <ImageView
+                    android:id="@+id/header_cover_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/pragati"
+                    app:srcCompat="@drawable/yback1" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+
+                    android:id="@+id/profile"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+
+                    android:layout_below="@+id/header_cover_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="-130dp"
+                    android:clickable="true"
+                    android:elevation="5dp"
+                    android:padding="20dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/yback"
+                    app:civ_border_color="#FFFFFFFF"
+                    app:civ_border_width="3dp" />
+
+                <RelativeLayout
+                    android:id="@+id/profile_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/header_cover_image"
+                    android:background="@color/prMain"
+                    android:elevation="4dp"
+                    android:paddingBottom="2dp">
+
+
+                    <ImageView
+                        android:id="@+id/edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="16dp"
+                        android:clickable="true"
+
+                        android:src="@android:drawable/ic_menu_edit" />
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="70dp"
+                        android:text="Pragati"
+                        android:textColor="#fff"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/designation"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:text="Hackathon"
+                        android:textColor="#fff"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/designation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/name"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:text="(Application)"
+                        android:textColor="#fff"
+                        android:textSize="18sp" />
+                </RelativeLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/profile_layout"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#fff"
+                    android:elevation="4dp"
+                    android:orientation="vertical"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp">
+
+                    <LinearLayout
+                        android:id="@+id/tt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/add_project"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:background="@drawable/round_button"
+                        android:onClick="addNewP"
+                        android:id="@+id/button1"
+                        android:width="100dp"
+                        android:textColor="#FFFF"
+                        android:height="70dp"
+                        android:layout_marginLeft="50dp"
+                        android:text="Add Project"/>
+
+                    <Button
+                        android:id="@+id/button4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/see_project"
+                        android:textColor="#FFFF"
+                        android:onClick="gotoP"
+                        android:background="@drawable/round_button"
+                        android:text="See Project"
+                        android:width="100dp"
+                        android:height="70dp"
+                        android:textSize="12dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintTop_toBottomOf="@id/button9"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="opU"
+                        android:drawableTop="@drawable/edit_project"
+                        android:text="Edit Project"
+                        android:textColor="#FFFF"
+                        android:background="@drawable/round_button"
+                        android:id="@+id/button5"
+                        android:width="100dp"
+                        android:height="70dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginRight="50dp"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:drawableTop="@drawable/see_admins"
+                        android:onClick="opU"
+                        android:textColor="#FFFF"
+                        android:id="@+id/button6"
+                        android:layout_marginLeft="50dp"
+                        android:background="@drawable/round_button"
+                        android:text="Admins"
+                        android:width="100dp"
+                        android:height="70dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/button1" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:onClick="opU"
+                        android:textColor="#FFFF"
+                        android:id="@+id/button7"
+                        android:drawableTop="@drawable/see_const"
+                        android:text="Constructors"
+                        android:width="100dp"
+                        android:height="70dp"
+                        android:textSize="10sp"
+                        android:background="@drawable/round_button"
+                        android:layout_marginRight="50dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/button8" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:onClick="opU"
+                        android:textColor="#FFFF"
+                        android:id="@+id/button8"
+                        android:drawableTop="@drawable/verify_admin"
+                        android:text="Verify Admin"
+                        android:width="100dp"
+                        android:height="70dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:background="@drawable/round_button"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        android:layout_marginRight="50dp"
+                        app:layout_constraintTop_toBottomOf="@+id/button5" />
+
+                    <Button
+                        android:id="@+id/button9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:width="100dp"
+                        android:height="70dp"
+                        android:background="@drawable/round_button"
+                        android:drawableTop="@drawable/verify_const"
+                        android:onClick="opU"
+                        android:text="Verify Constructor"
+                        android:textColor="#FFFF"
+                        android:textSize="10sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.182"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/button8" />
+
+                    <Button
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:width="100dp"
+                        android:height="70dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginRight="50dp"
+                        app:layout_constraintTop_toBottomOf="@id/button7"
+                        android:background="@drawable/round_button"
+                        android:drawableTop="@drawable/logout"
+                        android:onClick="exit"
+                        android:layout_marginTop="20dp"
+                        android:text="Logout"
+                        android:textColor="#FFFF"
+                        tools:layout_editor_absoluteX="246dp"
+                        tools:layout_editor_absoluteY="277dp" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </RelativeLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
