@@ -293,17 +293,28 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-<Spinner
-    android:spinnerMode="dialog"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:gravity="center"
-    android:id="@+id/spinner3"
-    android:textAlignment="center"
-    android:background="@drawable/spinner"
-    android:layout_weight="1"
-                            />
+            <Spinner
+                android:spinnerMode="dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:id="@+id/spinner3"
+                android:textAlignment="center"
+                android:background="@drawable/spinner"
+                android:layout_weight="1"
+                />
+            <Spinner
+                android:spinnerMode="dialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:id="@+id/spinner4"
+                android:textAlignment="center"
+                android:background="@drawable/spinner"
+                android:layout_weight="1"
+                />
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="100dp">

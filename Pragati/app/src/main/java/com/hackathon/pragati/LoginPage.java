@@ -84,9 +84,9 @@ public class LoginPage extends AppCompatActivity {
     public void sendOTP(String name,final String phoneNumber){
         final ProgressDialog pb=new ProgressDialog(this);
         pb.setMessage("Sending OTP...");
-        Toast.makeText(this, "here", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "here", Toast.LENGTH_SHORT).show();
 
-        //pb.show();
+        pb.show();
 
 
 

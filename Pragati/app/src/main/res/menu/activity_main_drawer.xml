@@ -5,33 +5,34 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/navy_home"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/navy_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:title= "OnGoing Projects" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/navy_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:title= "Upcoming Projects" />
         <item
-            android:id="@+id/nav_tools"
+            android:id="@+id/navy_tools"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_tools" />
+            android:title="Completed Projects" />
     </group>
 
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/navy_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/menu_share" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/navy_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="@string/menu_send" />
+                android:title="Logout"
+                />
         </menu>
     </item>
 

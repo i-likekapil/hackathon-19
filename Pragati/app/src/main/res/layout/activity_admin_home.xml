@@ -135,7 +135,6 @@
                         android:layout_height="wrap_content"
                         android:drawableTop="@drawable/see_project"
                         android:textColor="#FFFF"
-                        android:onClick="gotoP"
                         android:background="@drawable/round_button"
                         android:text="See Project"
                         android:width="100dp"

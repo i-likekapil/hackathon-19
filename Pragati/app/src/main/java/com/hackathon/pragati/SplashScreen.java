@@ -22,11 +22,11 @@ import java.util.Map;
 
 public class SplashScreen extends AppCompatActivity {
 
-    static FirebaseAuth firebaseAuth;
-    static FirebaseFirestore firestore;
-    static StorageReference storageRef;
-    static String appUser="none";
-    static Map<String,Object> appUserMap;
+    public static FirebaseAuth firebaseAuth;
+    public static FirebaseFirestore firestore;
+    public static StorageReference storageRef;
+    public static String appUser="none";
+    public static Map<String,Object> appUserMap;
 
 
     @Override

@@ -46,7 +46,7 @@ public class AddNewProject extends AppCompatActivity {
 
     EditText prname,prid,area,strt,end,web,typ,budgetu,budgeta,shortd,longd,head;
     List<String> selected_cities;
-    Spinner stateSpinner,citySpinner,statusSpinner;
+    Spinner stateSpinner,citySpinner,statusSpinner,consSpinner;
     private Intent GalIntent;
     private Intent CropIntent;
     List<Bitmap> imagesToUpload;
@@ -76,7 +76,8 @@ public class AddNewProject extends AppCompatActivity {
         budgetu=findViewById(R.id.projectBudget);
         shortd=findViewById(R.id.projectDesShort);
         longd=findViewById(R.id.projectDesLong);
-        
+        consSpinner=findViewById(R.id.spinner4);
+
 
         String[] states = {"Select State","Andhra_Pradesh", "Arunachal_Pradesh", "Assam", "Bihar","Delhi_NCR", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal_Pradesh", "Jammu_and_Kashmir", "Jharkhand", "Karnataka", "Kerala", "Madhya_Pradesh",
                 "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Rajasthan", "Punjab", "Sikkim", "Tamil_Nadu", "Telangana", "Tripura", "Uttar_Pradesh", "Uttarakhand", "West_Bengal"};
@@ -106,12 +107,38 @@ public class AddNewProject extends AppCompatActivity {
 
         selected_cities=new ArrayList<>();
 
+        showCons();
     }
+
+
+        public void showCons(){
+            firestore.document("Admins/listConstructors").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if(task.isSuccessful()){
+                        Map m=task.getResult().getData();
+                        List<String> cities= (List<String>) m.get("verified");
+                        cities.add(0,"Select Constructor");
+                        //String[] items = new String[]{"None", "NandGram", "Rajnagar Extension", "Vasundhara", "Shastri nagar"};
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(AddNewProject.this, R.layout.spinner, cities);
+                        consSpinner.setAdapter(adapter);
+
+                    }
+                    else
+                    {
+                        Toast.makeText(AddNewProject.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+
 
     public void put(View v){
         String pname=prname.getText().toString();
         String pid=prid.getText().toString();
         String stat=statusSpinner.getSelectedItem().toString();
+        String cons=consSpinner.getSelectedItem().toString();
         final String hd=head.getText().toString();
         String are=area.getText().toString();
         String en=end.getText().toString();
@@ -123,13 +150,13 @@ public class AddNewProject extends AppCompatActivity {
         String lgd=longd.getText().toString();
         String str=strt.getText().toString();
 
-if(pname.equals("")||pname==null)
+        if(pname.equals("")||pname==null)
         {
             Toast.makeText(this, "Enter Project Name", Toast.LENGTH_SHORT).show();
             return;
         }
 
-if(pid.equals("")||pid==null)
+        if(pid.equals("")||pid==null)
         {
             Toast.makeText(this, "Enter Project Id", Toast.LENGTH_SHORT).show();
             return;
@@ -140,34 +167,34 @@ if(pid.equals("")||pid==null)
             return;
         }
 
-if(are.equals("")||are==null)
+        if(are.equals("")||are==null)
         {
             Toast.makeText(this, "Enter Project Area", Toast.LENGTH_SHORT).show();
             return;
         }
-if(en.equals("")||en==null)
+        if(en.equals("")||en==null)
         {
             Toast.makeText(this, "Enter Project End date", Toast.LENGTH_SHORT).show();
             return;
         }
-if(we.equals("")||we==null)
+        if(we.equals("")||we==null)
         {
             Toast.makeText(this, "Enter Project Website", Toast.LENGTH_SHORT).show();
             return;
         }
 
-if(bugu.equals("")||bugu==null)
+        if(bugu.equals("")||bugu==null)
         {
             Toast.makeText(this, "Enter Project Budget Used", Toast.LENGTH_SHORT).show();
             return;
         }
-if(buga.equals("")||buga==null)
+        if(buga.equals("")||buga==null)
         {
             Toast.makeText(this, "Enter Project Budget Allocated", Toast.LENGTH_SHORT).show();
             return;
         }
 
-if(shd.equals("")||shd==null)
+        if(shd.equals("")||shd==null)
         {
             Toast.makeText(this, "Enter Short description", Toast.LENGTH_SHORT).show();
             return;
@@ -193,6 +220,11 @@ if(shd.equals("")||shd==null)
             Toast.makeText(this, "Select City", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(consSpinner==null||consSpinner.getSelectedItem().toString().equals("Select Constructor"))
+        {
+            Toast.makeText(this, "Select Constructor", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         final ProgressDialog pd=new ProgressDialog(this);
         pd.setMessage("Uploading Data");
@@ -214,6 +246,10 @@ if(shd.equals("")||shd==null)
         project.put("budget_allocated",buga);
         project.put("short_description",shd);
         project.put("long_description",lgd);
+        project.put("likes",0);
+        project.put("dislikes",0);
+        project.put("constructor",cons);
+
 
 
 
@@ -223,43 +259,43 @@ if(shd.equals("")||shd==null)
 
 
         firestore.document("Projects/"+pid).set(project, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
-    @Override
-    public void onComplete(@NonNull Task<Void> task) {
-        if(task.isSuccessful())
-        {
-            Toast.makeText(AddNewProject.this, "Upload Succesfull!", Toast.LENGTH_SHORT).show();
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(AddNewProject.this, "Upload Succesfull!", Toast.LENGTH_SHORT).show();
 
-            //pd.setIcon();
-
-
-
-            prname.setText("");
-            prid.setText("");
-            prname.setText("");
-            area.setText("");
-            end.setText("");
-            web.setText("");
-            typ.setText("");
-            budgeta.setText("");
-            budgetu.setText("");
-            shortd.setText("");
-            longd.setText("");
-            strt.setText("");
-            head.setText("");
-            statusSpinner.setSelection(0);
+                    //pd.setIcon();
 
 
 
+                    prname.setText("");
+                    prid.setText("");
+                    prname.setText("");
+                    area.setText("");
+                    end.setText("");
+                    web.setText("");
+                    typ.setText("");
+                    budgeta.setText("");
+                    budgetu.setText("");
+                    shortd.setText("");
+                    longd.setText("");
+                    strt.setText("");
+                    head.setText("");
+                    statusSpinner.setSelection(0);
 
 
-            pd.dismiss();
-        }
-        else
-            Toast.makeText(AddNewProject.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-    }
-});
+
+
+
+                    pd.dismiss();
+                }
+                else
+                    Toast.makeText(AddNewProject.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
         if(!imagesToUpload.isEmpty())
-        writeImage(imagesToUpload.get(0),pid+"001");
+            writeImage(imagesToUpload.get(0),pid+"001");
 
     }
 
@@ -373,7 +409,7 @@ if(shd.equals("")||shd==null)
             else System.out.println("Yahan hai dikkat badi wali");
         }
     }
-int i=0;
+    int i=0;
     public void writeImage(Bitmap bit,String name){
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -395,7 +431,7 @@ int i=0;
             });
         }
         catch (Exception e){
-        Toast.makeText(this, "Exception     "+e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Exception     "+e.getMessage(), Toast.LENGTH_SHORT).show();
         }
         //read(null,null,null);
     }
@@ -425,4 +461,4 @@ int i=0;
 
 
     }
-    }
+}

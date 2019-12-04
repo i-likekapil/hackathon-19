@@ -1,5 +1,8 @@
 package com.hackathon.pragati.ui.send;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +15,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.hackathon.pragati.LoginPage;
+import com.hackathon.pragati.MainActivity;
 import com.hackathon.pragati.R;
+
+import static com.hackathon.pragati.SplashScreen.firebaseAuth;
 
 public class SendFragment extends Fragment {
 
@@ -23,6 +30,7 @@ public class SendFragment extends Fragment {
         sendViewModel =
                 ViewModelProviders.of(this).get(SendViewModel.class);
         View root = inflater.inflate(R.layout.fragment_send, container, false);
+
         /*final TextView textView = root.findViewById(R.id.text_send);
         sendViewModel.getText().observe(this, new Observer<String>() {
             @Override

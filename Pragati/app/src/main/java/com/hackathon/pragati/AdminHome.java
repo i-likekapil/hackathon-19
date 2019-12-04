@@ -47,11 +47,7 @@ public class AdminHome extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
     }
 
-    public void gotoP(View v) {
-        Intent n = new Intent(this, ProjectHome.class);
-        n.putExtra("projectID", "ProjectID");
-        startActivity(n);
-    }
+
 
 
     public void perform() {

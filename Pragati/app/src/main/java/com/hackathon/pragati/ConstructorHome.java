@@ -151,6 +151,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.annotation.Nullable;
 
+import static com.hackathon.pragati.SplashScreen.appUserMap;
 import static com.hackathon.pragati.SplashScreen.firebaseAuth;
 import static com.hackathon.pragati.SplashScreen.firestore;
 
@@ -166,12 +167,22 @@ public class ConstructorHome extends AppCompatActivity {
 
     public void perform(){
 
+        Map document = appUserMap;
+
+        TextView nae = findViewById(R.id.name);
+        nae.setText(document.get("name").toString());
+        TextView org = findViewById(R.id.designation);
+        org.setText(document.get("pos").toString());
+        TextView pos = findViewById(R.id.location);
+        pos.setText(document.get("org").toString());
+
+
         String name=firebaseAuth.getCurrentUser().getEmail();
         final LinearLayout t = findViewById(R.id.tt);
         t.removeAllViews();
         final LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        firestore.collection("Projects").whereEqualTo("cities",name).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firestore.collection("Projects").whereEqualTo("constructor",name).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()) {

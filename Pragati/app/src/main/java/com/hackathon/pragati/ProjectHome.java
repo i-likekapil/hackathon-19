@@ -4,15 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.SetOptions;
@@ -24,6 +28,7 @@ import java.util.Set;
 import java.util.TimeZone;
 import static com.hackathon.pragati.SplashScreen.firebaseAuth;
 import static com.hackathon.pragati.SplashScreen.firestore;
+import static com.hackathon.pragati.SplashScreen.storageRef;
 
 public class ProjectHome extends AppCompatActivity {
 
@@ -35,60 +40,70 @@ public class ProjectHome extends AppCompatActivity {
         perform(getIntent().getStringExtra("project_id"));
     }
 
-    public void perform(String s){
+    public void perform(final String s) {
         final LinearLayout t = findViewById(R.id.tt);
-        firestore.document("Projects/"+s).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        ImageView img = findViewById(R.id.profile);
+        read(img, s + "001");
+        firestore.document("Projects/" + s).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    Map document=task.getResult().getData();
-                    Set<String> keys= document.keySet();
+                if (task.isSuccessful()) {
+                    Map document = task.getResult().getData();
+                    Set<String> keys = document.keySet();
                     ArrayList k2 = new ArrayList(keys);
 
-                    ArrayList values= new ArrayList(document.values());
-                    for(int i=0;i<keys.size();i++) {
+                    ArrayList values = new ArrayList(document.values());
+                    for (int i = 0; i < keys.size(); i++) {
                         TextView V = new TextView(ProjectHome.this);//(TextView) inflater.inflate(R.layout.cartext, t, false);
-                        V.setText(k2.get(i)+" : "+values.get(i));
+                        V.setText(k2.get(i) + " : " + values.get(i));
                         t.addView(V);
                     }
 
-                    Button b=new Button(ProjectHome.this);
+                    Button b = new Button(ProjectHome.this);
                     b.setText("Graph dekho ji");
                     b.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            startActivity(new Intent(ProjectHome.this,TestGraph.class));
+                            startActivity(new Intent(ProjectHome.this, TestGraph.class));
                         }
                     });
                     t.addView(b);
-                }
-                else{
+                    Button butt=new Button(ProjectHome.this);
+                    butt.setText("Give Updates");
+                    butt.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            update(s);
+                        }
+                    });
+                } else {
                     Toast.makeText(ProjectHome.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
     }
-    public  void update(final String prID)
-    {
+
+    public void update(final String prID) {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
         builder.setTitle("Update");
         final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_TEXT );
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
-        builder.setPositiveButton("Notify", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String x = input.getText().toString();
-                Map<String,Object> text=new HashMap<>();
-                text.put(getNowTimeMillis(),x);
-                firestore.document("Projects/"+prID+"/Updates/"+getTodayDate()).set(text, SetOptions.merge())
+                Map<String, Object> text = new HashMap<>();
+                text.put(getNowTimeMillis(), x);
+                firestore.document("Projects/" + prID + "/Updates/" + getTodayDate()).set(text, SetOptions.merge())
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
+                                if (task.isSuccessful()) {
 
-                                    Toast.makeText(ProjectHome.this, "Updated ;)", Toast.LENGTH_SHORT).show();}
-                                else
+                                    Toast.makeText(ProjectHome.this, "Updated ;)", Toast.LENGTH_SHORT).show();
+                                } else
                                     Toast.makeText(ProjectHome.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -103,6 +118,7 @@ public class ProjectHome extends AppCompatActivity {
         });
         builder.show();
     }
+
     public static String getTodayDate() {
         Calendar c = Calendar.getInstance();
         int mm = (int) (c.get(Calendar.MONTH)) + 1;
@@ -116,16 +132,35 @@ public class ProjectHome extends AppCompatActivity {
         int mm = Calendar.getInstance(TimeZone.getDefault()).getTime().getMinutes();
         return (hh < 10 ? ("0" + hh) : hh) + ":" + (mm < 10 ? ("0" + mm) : mm);
     }
+
     public static String getNowTimeMillis() {
         int hh = Calendar.getInstance(TimeZone.getDefault()).getTime().getHours();
         int mm = Calendar.getInstance(TimeZone.getDefault()).getTime().getMinutes();
         int ss = Calendar.getInstance(TimeZone.getDefault()).getTime().getSeconds();
         //int mi = Calendar.getInstance(TimeZone.getDefault()).getTime().get;
-        return (hh < 10 ? ("0" + hh) : hh) + ":" + (mm < 10 ? ("0" + mm) : mm)+":"+ (ss < 10 ? ("0" + ss) : ss);//+ (mi < 10 ? ("0" + mi) : mi);
+        return (hh < 10 ? ("0" + hh) : hh) + ":" + (mm < 10 ? ("0" + mm) : mm) + ":" + (ss < 10 ? ("0" + ss) : ss);//+ (mi < 10 ? ("0" + mi) : mi);
     }
 
+    Bitmap bit;
+
+    public void read(final ImageView dp, final String filename) {
+        //if (path == null) {
+        final long OO = 1024 * 1024;
+        storageRef.child(filename).getBytes(OO).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                bit = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                dp.setImageBitmap(bit);
+                System.out.println("Online se hua READ ");
+
+                //firestore.document("faculty/" + FirebaseAuth.getInstance().getCurrentUser().getEmail()).update("img_path", saveToInternalStorage(bit,filename));
+
+            }
+        });
 
 
+    }
 }
 /*
     public void perform(){

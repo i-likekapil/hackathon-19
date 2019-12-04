@@ -3,6 +3,7 @@ package com.hackathon.pragati;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -58,6 +59,7 @@ public class NewAdmin extends AppCompatActivity {
             }
         });
     }
+    String lol="Admins";
 
     public void createAdmin(View v){
         final String mail=email.getText().toString(),
@@ -96,6 +98,9 @@ public class NewAdmin extends AppCompatActivity {
             Toast.makeText(this, "Select account type!", Toast.LENGTH_SHORT).show();
             return;
         }
+        final ProgressDialog pd=new ProgressDialog(this);
+        pd.setMessage("Creating Account...");
+        pd.show();
 
         firebaseAuth.createUserWithEmailAndPassword(mail,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -120,13 +125,33 @@ public class NewAdmin extends AppCompatActivity {
                                 firebaseAuth.getCurrentUser().updateProfile(profileUpdates);
 
                                 Toast.makeText(NewAdmin.this, "Registration Succesful!\nVerification request sent to admin.", Toast.LENGTH_LONG).show();
-                                Intent i;
-                                if(c.isChecked())
-                                    i = new Intent(NewAdmin.this, ConstructorHome.class);
-                                else
-                                    i = new Intent(NewAdmin.this, AdminHome.class);
-                                startActivity(i);
-                                finish();
+
+                                if(!type.equals("admin"))
+                                    lol="Constructors";
+
+                                firestore.document("Admins/list"+lol).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if(task.isSuccessful())
+                                        {
+                                            Map m=task.getResult().getData();
+                                            List<String> admins= (List<String>) m.get("unVerified");
+                                            if(!admins.contains(mail))
+                                            {
+                                                admins.add(mail);
+                                                m.put("unVerified",admins);
+                                                firestore.document("Admins/list"+lol).set(m,SetOptions.merge());
+                                                Intent i;
+                                                pd.dismiss();
+
+                                                    i = new Intent(NewAdmin.this, SplashScreen.class);
+                                                startActivity(i);
+                                                finish();
+                                            }
+                                        }
+                                    }
+                                });
+
                             }
                             else
                             {
@@ -142,22 +167,6 @@ public class NewAdmin extends AppCompatActivity {
             }
         });
 
-        firestore.document("Projects/Admins/list").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful())
-                {
-                    Map m=task.getResult().getData();
-                    List<String> admins= (List<String>) m.get("unVerified");
-                    if(!admins.contains(mail))
-                    {
-                        admins.add(mail);
-                        m.put("unVerified",mail);
-                        firestore.document("Projects/Admins/list").set(m,SetOptions.merge());
-                    }
-                }
-            }
-        });
 
     }
 

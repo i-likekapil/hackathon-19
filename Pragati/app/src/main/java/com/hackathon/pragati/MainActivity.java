@@ -48,6 +48,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -97,18 +98,87 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .setAction("Action", null).show();
             }
         });*/
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        //DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        navigationView.setNavigationItemSelectedListener(
+                this);
+/*                new NavigationView.OnNavigationItemSelectedListener()
+        {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item)
+            {
+                // Handle navigation view item clicks here.
+                int id = item.getItemId();
+
+                if (id == R.id.navy_home) {
+                    DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                    drawer.closeDrawer(GravityCompat.START);
+                    // Handle the camera action
+                } else if (id == R.id.navy_gallery) {
+
+            /*if(appUser.getType().equalsIgnoreCase("Admin"))
+                startActivity(new Intent(this,FacultyList.class));
+            else toast(this,"You are not an Admin!");*
+                    //facultyView(null);
+
+                } else if (id == R.id.navy_slideshow) {
+
+            /*if(appUser.getType().equalsIgnoreCase("Admin"))
+                admin_allBatch(null);
+            else toast(this,"You are not an Admin!");*
+
+                } else if (id == R.id.navy_tools) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("Confirm Exit")
+                            .setMessage("Are you sure you want to exit?")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    finish();
+                                }})
+                            .setNegativeButton(android.R.string.no, null).show();
+
+
+
+                } else if (id == R.id.nav_share) {
+
+                    //startActivity(new Intent(this,AboutView.class));
+
+
+                } else if (id == R.id.navy_send) {
+ *
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("Confirm Sign Out")
+                            .setMessage("Are you sure you want to SignOut?")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    firebaseAuth.signOut();
+                                    startActivity(new Intent(MainActivity.this, LoginPage.class));
+                                    finish();
+                                }})
+                            .setNegativeButton(android.R.string.no, null).show();
+                }
+
+                DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
+*/
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
-                .setDrawerLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+//        mAppBarConfiguration = new AppBarConfiguration.Builder(
+  //              R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
+    //            R.id.nav_tools, R.id.nav_share, R.id.nav_send)
+      //          .setDrawerLayout(drawer)
+        //        .build();
+       // NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        //NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        //NavigationUI.setupWithNavController(navigationView, navController);
 
 
         String[] states = {"All", "Andhra_Pradesh", "Arunachal_Pradesh", "Assam", "Bihar", "Delhi_NCR", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal_Pradesh", "Jammu_and_Kashmir", "Jharkhand", "Karnataka", "Kerala", "Madhya_Pradesh",
@@ -208,15 +278,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 if(!like.isSelected()) {
                                     like.setImageResource(R.drawable.ic_thumb_up_select_24dp);
                                     like.setSelected(true);
+                                    //liker(firebaseAuth.getCurrentUser().getDisplayName(),document.get("project_id").toString());
+
+                                    if (dislike.isSelected()) {
+                                        dislike.setImageResource(R.drawable.ic_thumb_up_black_24dp);
+                                        dislike.setSelected(false);
+                                        likerundisliker(firebaseAuth.getCurrentUser().getDisplayName(),document.get("project_id").toString());
+                                    }
+                                    else
+                                        liker(firebaseAuth.getCurrentUser().getDisplayName(),document.get("project_id").toString());
                                 }
                                 else
                                 {
                                     like.setImageResource(R.drawable.ic_thumb_up_black_24dp);
                                     like.setSelected(false);
-
-
+                                    unliker(firebaseAuth.getCurrentUser().getDisplayName(),document.get("project_id").toString());
                                 }
-
                             }
                         });
 
@@ -227,19 +304,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     dislike.setImageResource(R.drawable.ic_thumb_down_select_24dp);
                                     dislike.setSelected(true);
 
-                                    if(like.isSelected()) {
-                                        like.setImageResource(R.drawable.ic_thumb_up_select_24dp);
-                                        like.setSelected(true);
+                                    if (like.isSelected()) {
+                                        like.setImageResource(R.drawable.ic_thumb_up_black_24dp);
+                                        like.setSelected(false);
+                                        dislikerunliker(firebaseAuth.getCurrentUser().getDisplayName(),document.get("project_id").toString());
                                     }
+                                    else
+                                        disliker(firebaseAuth.getCurrentUser().getDisplayName(),document.get("project_id").toString());
+                                }
                                 else
                                 {
                                     dislike.setImageResource(R.drawable.ic_thumb_down_not_select);
                                     dislike.setSelected(false);
-
+                                    undisliker(firebaseAuth.getCurrentUser().getDisplayName(),document.get("project_id").toString());
                                 }
-
-                            }
-
                         }});
 
                         comment.setOnClickListener(new View.OnClickListener() {
@@ -261,6 +339,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                                 addComment(document.get("project_id"),cmnt);
                                 cmntTxt.setText("");
+
                             }
                         });
 
@@ -287,6 +366,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                         t.addView(cd);
                     }
+                    Button button=new Button(MainActivity.this);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            firebaseAuth.signOut();
+                            startActivity(new Intent(MainActivity.this, LoginPage.class));
+                            finish();
+                        }
+                    });
+                    t.addView(button);
                 }
 
                 else{
@@ -345,8 +434,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
-
-
 /*
     private Bitmap loadImageFromStorage(ImageView img,String path,String filename) {
 
@@ -436,24 +523,24 @@ System.out.println("Local se hua READ " );
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
+        if (id == R.id.navy_home) {
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.navy_gallery) {
 
             /*if(appUser.getType().equalsIgnoreCase("Admin"))
                 startActivity(new Intent(this,FacultyList.class));
             else toast(this,"You are not an Admin!");*/
             //facultyView(null);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.navy_slideshow) {
 
             /*if(appUser.getType().equalsIgnoreCase("Admin"))
                 admin_allBatch(null);
             else toast(this,"You are not an Admin!");*/
 
-        } else if (id == R.id.nav_tools) {
+        } else if (id == R.id.navy_tools) {
             new AlertDialog.Builder(this)
                     .setTitle("Confirm Exit")
                     .setMessage("Are you sure you want to exit?")
@@ -467,7 +554,7 @@ System.out.println("Local se hua READ " );
 
 
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.navy_share) {
 
             //startActivity(new Intent(this,AboutView.class));
 
@@ -606,5 +693,109 @@ System.out.println("Local se hua READ " );
         }*/
     }
 
+    public void liker(String user, final String pid){
+        
+        firestore.document("Projects/"+pid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    Map m=task.getResult().getData();
+                    int likes= Integer.parseInt(m.get("likes").toString());
+                    likes++;
+                    m.put("likes",likes);
+                    firestore.document("Projects/"+pid).set(m,SetOptions.merge());
+                }
+            }
+        });
 
+    }
+    public void unliker(String user,final  String pid){
+        firestore.document("Projects/"+pid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    Map m=task.getResult().getData();
+                    int likes= Integer.parseInt(m.get("likes").toString());
+
+                    if(Integer.parseInt(m.get("likes").toString())>0){
+                    likes--;}
+                    m.put("likes",likes);
+                    firestore.document("Projects/"+pid).set(m,SetOptions.merge());
+                }
+            }
+        });
+
+    }
+    public void disliker(String user, final String pid){
+        firestore.document("Projects/"+pid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    Map m=task.getResult().getData();
+                    int likes= Integer.parseInt(m.get("dislikes").toString());
+                    likes++;
+                    m.put("dislikes",likes);
+                    firestore.document("Projects/"+pid).set(m,SetOptions.merge());
+                }
+            }
+        });
+
+    }
+    public void undisliker(String user, final String pid){
+        firestore.document("Projects/"+pid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    Map m=task.getResult().getData();
+                    int likes= Integer.parseInt(m.get("dislikes").toString());
+                    likes--;
+                    m.put("dislikes",likes);
+                    firestore.document("Projects/"+pid).set(m,SetOptions.merge());
+                }
+            }
+        });
+
+    }
+
+    public void likerundisliker(String user, final String pid){
+        firestore.document("Projects/"+pid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    Map m=task.getResult().getData();
+                    int likes= Integer.parseInt(m.get("likes").toString());
+                    likes++;
+                    int dislikes= Integer.parseInt(m.get("dislikes").toString());
+                    dislikes--;
+                    m.put("likes",likes);
+                    m.put("dislikes",dislikes);
+                    firestore.document("Projects/"+pid).set(m,SetOptions.merge());
+                }
+            }
+        });
+
+    }
+
+    public void dislikerunliker(String user, final String pid){
+        firestore.document("Projects/"+pid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    Map m=task.getResult().getData();
+                    int likes= Integer.parseInt(m.get("likes").toString());
+                    likes--;
+                    int dislikes= Integer.parseInt(m.get("dislikes").toString());
+                    dislikes++;
+                    m.put("likes",likes);
+                    m.put("dislikes",dislikes);
+                    firestore.document("Projects/"+pid).set(m,SetOptions.merge());
+                }
+            }
+        });
+
+    }
+    public void bhr_nikl(View view) {
+        firebaseAuth.signOut();
+        finish();
+    }
 }
