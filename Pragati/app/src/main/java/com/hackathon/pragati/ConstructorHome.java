@@ -204,7 +204,7 @@ public class ConstructorHome extends AppCompatActivity {
                         final EditText cmntTxt=(EditText)k.getChildAt(7);
                         final ImageView send= (ImageView) k.getChildAt(8);
 
-                        
+
                         comment.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

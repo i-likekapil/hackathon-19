@@ -273,15 +273,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             }
                         });
 
-                        if(document.contains("pics")) {
+                        /*if(document.contains("pics")) {
                             Map<String, String> pics = (Map<String, String>) document.get("pics");
                             List<String> picKeys = new ArrayList<>(pics.keySet());
 
                             String path = picKeys.get(0);
                             String filename = pics.get(path);
-                            read(pic, path, filename);
+                            read(pic, filename);
 
                         }
+*/
+                        read(pic,firebaseAuth.getCurrentUser().getEmail()+"001");
 
                         t.addView(cd);
                     }
@@ -345,12 +347,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+/*
     private Bitmap loadImageFromStorage(ImageView img,String path,String filename) {
 
         try {
             File f = new File(path );
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             img.setImageBitmap(b);
+*/
 /*
             img = findViewById(R.id.dipi);
             img = new ImageView(this);
@@ -360,7 +364,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             imageView.setImageBitmap(b);
 
             img.setImageBitmap(b);
-*/
+*//*
+
 System.out.println("Local se hua READ " );
 
             return b;
@@ -372,29 +377,31 @@ System.out.println("Local se hua READ " );
         }
 
     }
+*/
 
     Bitmap bit;
-    public Bitmap read(final ImageView dp, String path, final String filename) {
-        if (path == null) {
+    public void read(final ImageView dp,final String filename) {
+        //if (path == null) {
             final long OO = 1024 * 1024;
-            storageRef.child(FirebaseAuth.getInstance().getCurrentUser().getEmail()).getBytes(OO).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            storageRef.child(filename).getBytes(OO).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
                     bit = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     dp.setImageBitmap(bit);
                     System.out.println("Online se hua READ " );
 
-                    firestore.document("faculty/" + FirebaseAuth.getInstance().getCurrentUser().getEmail()).update("img_path", saveToInternalStorage(bit,filename));
+                    //firestore.document("faculty/" + FirebaseAuth.getInstance().getCurrentUser().getEmail()).update("img_path", saveToInternalStorage(bit,filename));
 
                 }
             });
 
 
-        }
-        return loadImageFromStorage(dp,path,filename);
+        //}
+        //return loadImageFromStorage(dp,path,filename);
     }
 
 
+/*
     private String saveToInternalStorage(Bitmap bitmapImage,String name) {
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
         // path to /data/data/yourapp/app_data/imageDir
@@ -421,6 +428,7 @@ System.out.println("Local se hua READ " );
         return directory.getAbsolutePath();
     }
 
+*/
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -567,8 +575,9 @@ System.out.println("Local se hua READ " );
                 //toast(MainActivity.this,"Photo Updated!");
             }
         });
-        read(null,null,null);
+        //read(null,null,null);
     }
+
     public void ImageCropFunction() {
 
        /* // Image Crop Code
