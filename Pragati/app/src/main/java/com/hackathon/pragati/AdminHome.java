@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
+import static com.hackathon.pragati.SplashScreen.appUserMap;
 import static com.hackathon.pragati.SplashScreen.firebaseAuth;
 import static com.hackathon.pragati.SplashScreen.firestore;
 
@@ -29,64 +30,45 @@ public class AdminHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home);
-
+        perform();
     }
-    public void exit(View view)
-    {
+
+    public void exit(View view) {
         firebaseAuth.signOut();
-        startActivity(new Intent(AdminHome.this,SplashScreen.class));
+        startActivity(new Intent(AdminHome.this, SplashScreen.class));
         finish();
     }
 
-    public void addNewP(View v)
-    {
-        startActivity(new Intent(this,AddNewProject.class));
+    public void addNewP(View v) {
+        startActivity(new Intent(this, AddNewProject.class));
     }
-    public void opU(View v)
-    {
-        startActivity(new Intent(this,MainActivity.class));
+
+    public void opU(View v) {
+        startActivity(new Intent(this, MainActivity.class));
     }
-    public void gotoP(View v)
-    {
-        Intent n=new Intent(this,ProjectHome.class);
-        n.putExtra("projectID","ProjectDKRana");
+
+    public void gotoP(View v) {
+        Intent n = new Intent(this, ProjectHome.class);
+        n.putExtra("projectID", "ProjectID");
         startActivity(n);
     }
 
 
-    public void perform(String s){
-        final LinearLayout t = findViewById(R.id.tt);
-        firestore.document("Admins/"+s).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    Map document=task.getResult().getData();
-                    Set<String> keys= document.keySet();
-                    ArrayList k2 = new ArrayList(keys);
+    public void perform() {
 
-                    ArrayList values= new ArrayList(document.values());
-                    for(int i=0;i<keys.size();i++) {
-                        TextView V = new TextView(AdminHome.this);//(TextView) inflater.inflate(R.layout.cartext, t, false);
-                        V.setText(k2.get(i)+" : "+values.get(i));
-                        t.addView(V);
-                    }
+        Map document = appUserMap;
 
-                    Button b=new Button(AdminHome.this);
-                    b.setText("Graph dekho ji");
-                    b.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            startActivity(new Intent(AdminHome.this,TestGraph.class));
-                        }
-                    });
-                    t.addView(b);
-                }
-                else{
-                    Toast.makeText(AdminHome.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        TextView name = findViewById(R.id.name);
+        name.setText(document.get("name").toString());
+        TextView org = findViewById(R.id.designation);
+        org.setText(document.get("pos").toString());
+        TextView pos = findViewById(R.id.location);
+        pos.setText(document.get("org").toString());
+
+
+
+
+
     }
-
 
 }

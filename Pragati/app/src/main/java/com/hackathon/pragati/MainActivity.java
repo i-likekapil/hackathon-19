@@ -178,22 +178,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         CardView cd = (CardView) inflater.inflate(R.layout.prcard, t, false);
                         ConstraintLayout k = (ConstraintLayout) cd.getChildAt(0);
                         TextView tv1 = (TextView) k.getChildAt(0);
-                        tv1.setText(tv1.getText() + " : " + document.get("project_name").toString());
+                        tv1.setText(document.get("project_name").toString());
+
                         ImageView main= (ImageView) k.getChildAt(1);
                         TextView tv2 = (TextView) k.getChildAt(2);
-                        tv2.setText(tv2.getText() + " : " + document.get("Area").toString());
+                        tv2.setText(tv2.getText() + " : " + document.get("area").toString());
                         TextView tv3 = (TextView) k.getChildAt(3);
                         tv3.setText(tv3.getText() + " : " + document.get("status").toString());
 //                        LinearLayout ll=(LinearLayout)k.getChildAt(8);
                         ArrayList<String> cities = (ArrayList<String>) document.get("cities");
 
-                        Map<String,String> pics= (Map<String, String>) document.get("pics");
-                        List<String> picKeys=new ArrayList<>(pics.keySet());
                         // for(final String car:cars) {
                         //    TextView carV = new TextView(MainActivity.this);
                         //    carV.setText(car);
 //                        String photoPath=document.get("photoMainPath").toString();
-  //                      String photoFile=document.get("photoMainFile").toString();
+  //                      String photoFile=xdocument.get("photoMainFile").toString();
 
     //                    read(main,photoPath,photoFile);
                         final ImageView pic= (ImageView) k.getChildAt(1);
@@ -273,9 +272,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 startActivity(i);
                             }
                         });
-                        String path=picKeys.get(0);
-                        String filename=pics.get(path);
-                        read(pic,path,filename);
+
+                        if(document.contains("pics")) {
+                            Map<String, String> pics = (Map<String, String>) document.get("pics");
+                            List<String> picKeys = new ArrayList<>(pics.keySet());
+
+                            String path = picKeys.get(0);
+                            String filename = pics.get(path);
+                            read(pic, path, filename);
+
+                        }
+
                         t.addView(cd);
                     }
                 }

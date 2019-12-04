@@ -4,5 +4,5 @@
     <color name="colorPrimaryDark">#FF9812</color>
     <color name="colorAccent">#FF9823</color>
     <color name="prMain">#FF9800</color>
-    <color name="prMainLight">#FF9800</color>
+    <color name="prMainLight">#D3FF9800</color>
 </resources>

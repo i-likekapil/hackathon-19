@@ -43,7 +43,7 @@
                     android:elevation="5dp"
                     android:padding="20dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/yback"
+                    android:src="@drawable/passport"
                     app:civ_border_color="#FFFFFFFF"
                     app:civ_border_width="3dp" />
 
@@ -56,18 +56,6 @@
                     android:elevation="4dp"
                     android:paddingBottom="2dp">
 
-
-                    <ImageView
-                        android:id="@+id/edit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginRight="16dp"
-                        android:clickable="true"
-
-                        android:src="@android:drawable/ic_menu_edit" />
 
                     <TextView
                         android:id="@+id/name"
@@ -202,9 +190,9 @@
                         android:height="70dp"
                         android:textSize="10sp"
                         android:background="@drawable/round_button"
-                        android:layout_marginRight="50dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/button8" />
+                        android:layout_marginLeft="50dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/button6" />
 
                     <Button
                         android:layout_width="wrap_content"
@@ -236,9 +224,8 @@
                         android:text="Verify Constructor"
                         android:textColor="#FFFF"
                         android:textSize="10sp"
+                        android:layout_marginRight="50dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.182"
-                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/button8" />
 
                     <Button

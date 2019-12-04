@@ -2,7 +2,6 @@ package com.hackathon.pragati;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,19 +12,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.SetOptions;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
-
 import static com.hackathon.pragati.SplashScreen.firebaseAuth;
 import static com.hackathon.pragati.SplashScreen.firestore;
 
@@ -36,7 +32,7 @@ public class ProjectHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_home);
 
-        perform(getIntent().getStringExtra("projectID"));
+        perform(getIntent().getStringExtra("project_id"));
     }
 
     public void perform(String s){
@@ -72,9 +68,6 @@ public class ProjectHome extends AppCompatActivity {
             }
         });
     }
-
-
-
     public  void update(final String prID)
     {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);

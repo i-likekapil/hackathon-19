@@ -44,7 +44,7 @@ import java.util.Map;
 
 public class AddNewProject extends AppCompatActivity {
 
-    EditText prname,prid,area,strt,end,web,typ,budgetu,budgeta,shortd,longd;
+    EditText prname,prid,area,strt,end,web,typ,budgetu,budgeta,shortd,longd,head;
     List<String> selected_cities;
     Spinner stateSpinner,citySpinner,statusSpinner;
     private Intent GalIntent;
@@ -60,6 +60,7 @@ public class AddNewProject extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_project);
         prname=findViewById(R.id.projectName);
         prid=findViewById(R.id.projectID);
+        head=findViewById(R.id.projectHead);
         imagesToUpload=new ArrayList<>();
         pics=new HashMap<>();
         area=findViewById(R.id.Area);
@@ -111,9 +112,11 @@ public class AddNewProject extends AppCompatActivity {
         String pname=prname.getText().toString();
         String pid=prid.getText().toString();
         String stat=statusSpinner.getSelectedItem().toString();
+        final String hd=head.getText().toString();
         String are=area.getText().toString();
         String en=end.getText().toString();
         String we=web.getText().toString();
+        String ty=typ.getText().toString();
         String bugu=budgetu.getText().toString();
         String buga=budgeta.getText().toString();
         String shd=shortd.getText().toString();
@@ -129,6 +132,11 @@ if(pname.equals("")||pname==null)
 if(pid.equals("")||pid==null)
         {
             Toast.makeText(this, "Enter Project Id", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(hd.equals("")||hd==null)
+        {
+            Toast.makeText(this, "Enter Project Head", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -175,33 +183,42 @@ if(shd.equals("")||shd==null)
             Toast.makeText(this, "Enter Project Status", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(stateSpinner.getSelectedItem().toString().equals("Select State"))
+        {
+            Toast.makeText(this, "Select State", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(citySpinner==null||citySpinner.getSelectedItem().toString().equals("Select City"))
+        {
+            Toast.makeText(this, "Select City", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        ProgressDialog pd=new ProgressDialog(this);
+        final ProgressDialog pd=new ProgressDialog(this);
         pd.setMessage("Uploading Data");
         pd.show();
-        Map<String,Object> project=new HashMap<>();
+        final Map<String,Object> project=new HashMap<>();
         selected_cities.add(0,"All");
         selected_cities.add(citySpinner.getSelectedItem().toString());
         project.put("project_name",pname);
         project.put("project_id",pid);
         project.put("cities",selected_cities);
         project.put("status",stat);
+        project.put("project_head",hd);
         project.put("area",are);
         project.put("end_date",en);
-        project.put("start_date",strt);
+        project.put("start_date",str);
         project.put("website",we);
-        project.put("type",typ.getText().toString());
-        project.put("Budget Used",bugu);
-        project.put("Budget Allocated",buga);
-        project.put("Short Description",shd);
-        project.put("Long Description",lgd);
+        project.put("type",ty);
+        project.put("budget_used",bugu);
+        project.put("budget_allocated",buga);
+        project.put("short_description",shd);
+        project.put("long_description",lgd);
 
 
 
-for(Bitmap img:imagesToUpload) {
-
-
-        }
+/*for(Bitmap img:imagesToUpload) {
+        }*/
 
 
 
@@ -211,9 +228,38 @@ for(Bitmap img:imagesToUpload) {
         if(task.isSuccessful())
         {
             Toast.makeText(AddNewProject.this, "Upload Succesfull!", Toast.LENGTH_SHORT).show();
+
+            //pd.setIcon();
+
+
+
+            prname.setText("");
+            prid.setText("");
+            prname.setText("");
+            area.setText("");
+            end.setText("");
+            web.setText("");
+            typ.setText("");
+            budgeta.setText("");
+            budgetu.setText("");
+            shortd.setText("");
+            longd.setText("");
+            strt.setText("");
+            head.setText("");
+            statusSpinner.setSelection(0);
+
+
+
+
+
+            pd.dismiss();
         }
+        else
+            Toast.makeText(AddNewProject.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
     }
 });
+        if(!imagesToUpload.isEmpty())
+        writeImage(imagesToUpload.get(0),pid+"001");
 
     }
 
@@ -221,7 +267,7 @@ for(Bitmap img:imagesToUpload) {
         final String state=stateSpinner.getSelectedItem().toString();
         if(state.equals("Select State"))
         {
-            Toast.makeText(this, "Select State", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Select State", Toast.LENGTH_SHORT).show();
             return;
         }
         firestore.document("India/"+state).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -329,20 +375,28 @@ for(Bitmap img:imagesToUpload) {
     }
 int i=0;
     public void writeImage(Bitmap bit,String name){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bit.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] datas = baos.toByteArray();
-        System.out.println("WrIte here//////////////////////////////////////////////"+i++);
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bit.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] datas = baos.toByteArray();
+            System.out.println("WrIte here//////////////////////////////////////////////" + i++);
 
 
+            storageRef.child(name).putBytes(datas).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-        storageRef.child(name).putBytes(datas).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                Toast.makeText(AddNewProject.this, "Photo Added", Toast.LENGTH_SHORT).show();//(MainActivity.this,"Photo Updated!");
-            }
-        });
+                    LinearLayout imgtt=findViewById(R.id.photosL);
+                    ImageView k= (ImageView) imgtt.getChildAt(0);
+                    imgtt.removeAllViews();
+                    imgtt.addView(k);
+                    Toast.makeText(AddNewProject.this, "Photo Added", Toast.LENGTH_SHORT).show();//(MainActivity.this,"Photo Updated!");
+                }
+            });
+        }
+        catch (Exception e){
+        Toast.makeText(this, "Exception     "+e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
         //read(null,null,null);
     }
     public void ImageCropFunction() {

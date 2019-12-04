@@ -3,6 +3,7 @@ package com.hackathon.pragati;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -41,16 +42,16 @@ public class AdminLogin extends AppCompatActivity {
             Toast.makeText(this, "Invalid Password!", Toast.LENGTH_SHORT).show();
             return;
         }
+        final ProgressDialog pd=new ProgressDialog(this);
+        pd.setMessage("Signing In...");
+        pd.show();
         firebaseAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(AdminLogin.this, "SignIn successful!", Toast.LENGTH_SHORT).show();
-                    Intent i;
-                    if(firebaseAuth.getCurrentUser().getEmail().equals(""))
-                        i = new Intent(AdminLogin.this, ConstructorHome.class);
-                    else
-                        i = new Intent(AdminLogin.this, AdminHome.class);
+                    pd.hide();
+                    Intent i = new Intent(AdminLogin.this, SplashScreen.class);
                     startActivity(i);
                     finish();
 

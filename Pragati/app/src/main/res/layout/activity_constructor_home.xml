@@ -6,14 +6,270 @@
     android:layout_height="match_parent"
     tools:context=".ConstructorHome">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Constructor Home"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AdminHome">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/layout">
+
+
+                    <ImageView
+                        android:id="@+id/header_cover_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/pragati"
+                        app:srcCompat="@drawable/yback1" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+
+                        android:id="@+id/profile"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+
+                        android:layout_below="@+id/header_cover_image"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="-130dp"
+                        android:clickable="true"
+                        android:elevation="5dp"
+                        android:padding="20dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/passport"
+                        app:civ_border_color="#FFFFFFFF"
+                        app:civ_border_width="3dp" />
+
+                    <RelativeLayout
+                        android:id="@+id/profile_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/header_cover_image"
+                        android:background="@color/prMain"
+                        android:elevation="4dp"
+                        android:paddingBottom="2dp">
+
+
+                        <TextView
+                            android:id="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="70dp"
+                            android:text="Constructor"
+                            android:textColor="#fff"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/designation"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:text="Hackathon"
+                            android:textColor="#fff"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/designation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/name"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:text="Layout"
+                            android:textColor="#fff"
+                            android:textSize="18sp" />
+                    </RelativeLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/profile_layout"
+                        android:layout_margin="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#fff"
+                        android:elevation="4dp"
+                        android:orientation="vertical"
+                        android:paddingTop="20dp"
+                        android:paddingBottom="20dp"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp">
+
+                        <LinearLayout
+                            android:id="@+id/tt"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+<!--
+
+                        <Button
+                            android:id="@+id/button1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="50dp"
+                            android:width="100dp"
+                            android:height="70dp"
+                            android:background="@drawable/round_button"
+                            android:drawableTop="@drawable/add_project"
+                            android:text="Add "
+                            android:textColor="#FFFF"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Button
+                            android:id="@+id/button4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="20dp"
+                            android:width="100dp"
+                            android:height="70dp"
+                            android:background="@drawable/round_button"
+                            android:drawableTop="@drawable/see_project"
+                            android:text="See Project"
+                            android:textColor="#FFFF"
+                            android:textSize="12dp"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/button9" />
+
+                        <Button
+                            android:id="@+id/button5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="50dp"
+                            android:width="100dp"
+                            android:height="70dp"
+                            android:background="@drawable/round_button"
+                            android:drawableTop="@drawable/edit_project"
+                            android:text="Edit Project"
+                            android:textColor="#FFFF"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Button
+                            android:id="@+id/button6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="20dp"
+                            android:width="100dp"
+                            android:height="70dp"
+                            android:background="@drawable/round_button"
+                            android:drawableTop="@drawable/see_admins"
+                            android:text="Admins"
+                            android:textColor="#FFFF"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/button1" />
+
+                        <Button
+                            android:id="@+id/button7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginLeft="50dp"
+                            android:layout_marginTop="20dp"
+                            android:width="100dp"
+                            android:height="70dp"
+                            android:background="@drawable/round_button"
+                            android:drawableTop="@drawable/see_const"
+                            android:text="Constructors"
+                            android:textColor="#FFFF"
+                            android:textSize="10sp"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/button6" />
+
+                        <Button
+                            android:id="@+id/button8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="50dp"
+                            android:width="100dp"
+                            android:height="70dp"
+                            android:background="@drawable/round_button"
+                            android:drawableTop="@drawable/verify_admin"
+                            android:text="Verify Admin"
+                            android:textColor="#FFFF"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/button5" />
+
+                        <Button
+                            android:id="@+id/button9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="50dp"
+                            android:width="100dp"
+                            android:height="70dp"
+                            android:background="@drawable/round_button"
+                            android:drawableTop="@drawable/verify_const"
+                            android:text="Verify Constructor"
+                            android:textColor="#FFFF"
+                            android:textSize="10sp"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/button8" />
+
+                        <Button
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="50dp"
+                            android:width="100dp"
+                            android:height="70dp"
+                            android:background="@drawable/round_button"
+                            android:drawableTop="@drawable/logout"
+                            android:text="Logout"
+                            android:textColor="#FFFF"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/button7" />
+
+-->
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </RelativeLayout>
+
+
+
+
+
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

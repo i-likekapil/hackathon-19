@@ -28,6 +28,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:padding="5dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:orientation="horizontal"
@@ -38,17 +39,26 @@
 
             <Spinner
                 android:id="@+id/spinnerState"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="60"
-                android:background="@drawable/spinner" />
+                android:layout_weight="50"
+                android:background="@drawable/spinner"
+                android:gravity="center"
+                android:padding="2dp"
+                android:spinnerMode="dialog"
+                android:textAlignment="gravity" />
 
             <Spinner
                 android:id="@+id/spinnerCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="40"
-                android:background="@drawable/spinner" />
+                android:layout_gravity="center|center_horizontal|fill|fill_horizontal|center_vertical|fill_vertical"
+                android:layout_weight="50"
+                android:background="@drawable/spinner"
+                android:gravity="center"
+                android:padding="2dp"
+                android:spinnerMode="dialog"
+                android:textAlignment="center" />
         </LinearLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

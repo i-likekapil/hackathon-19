@@ -3,8 +3,6 @@ package com.hackathon.pragati;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-
-//hahahahah
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
@@ -60,6 +58,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import java.io.ByteArrayOutputStream;
@@ -73,6 +72,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.Timer;
@@ -149,9 +149,9 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javax.annotation.Nullable;
 
+import static com.hackathon.pragati.SplashScreen.firebaseAuth;
 import static com.hackathon.pragati.SplashScreen.firestore;
 
 
@@ -161,8 +161,101 @@ public class ConstructorHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_constructor_home);
+        perform();
     }
 
+    public void perform(){
+
+        String name=firebaseAuth.getCurrentUser().getEmail();
+        final LinearLayout t = findViewById(R.id.tt);
+        t.removeAllViews();
+        final LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        firestore.collection("Projects").whereEqualTo("cities",name).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    List<DocumentSnapshot> documents = task.getResult().getDocuments();
+                    for (final DocumentSnapshot document : documents) {
+                        CardView cd = (CardView) inflater.inflate(R.layout.prcard, t, false);
+                        ConstraintLayout k = (ConstraintLayout) cd.getChildAt(0);
+                        TextView tv1 = (TextView) k.getChildAt(0);
+                        tv1.setText(document.get("project_name").toString());
+
+                        ImageView main= (ImageView) k.getChildAt(1);
+                        TextView tv2 = (TextView) k.getChildAt(2);
+                        tv2.setText(tv2.getText() + " : " + document.get("area").toString());
+                        TextView tv3 = (TextView) k.getChildAt(3);
+                        tv3.setText(tv3.getText() + " : " + document.get("status").toString());
+//                        LinearLayout ll=(LinearLayout)k.getChildAt(8);
+                        ArrayList<String> cities = (ArrayList<String>) document.get("cities");
+
+                        // for(final String car:cars) {
+                        //    TextView carV = new TextView(MainActivity.this);
+                        //    carV.setText(car);
+//                        String photoPath=document.get("photoMainPath").toString();
+                        //                      String photoFile=xdocument.get("photoMainFile").toString();
+
+                        //                    read(main,photoPath,photoFile);
+                        final ImageView pic= (ImageView) k.getChildAt(1);
+                        final ImageView like= (ImageView) k.getChildAt(4);
+                        final ImageView dislike= (ImageView) k.getChildAt(5);
+                        final ImageView comment= (ImageView) k.getChildAt(6);
+                        final EditText cmntTxt=(EditText)k.getChildAt(7);
+                        final ImageView send= (ImageView) k.getChildAt(8);
+
+                        
+                        comment.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                cmntTxt.setVisibility(View.VISIBLE);
+                                send.setVisibility(View.VISIBLE);
+                            }
+                        });
+
+
+                        send.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String cmnt=cmntTxt.getText().toString();
+                                if(cmnt.equals("")){
+                                    Toast.makeText(ConstructorHome.this, "Enter Comment First", Toast.LENGTH_SHORT).show();
+                                }
+
+                                //addComment(document.get("project_id"),cmnt);
+                                cmntTxt.setText("");
+                            }
+                        });
+
+                        pic.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent i = new Intent(ConstructorHome.this, ProjectHome.class);
+                                i.putExtra("project_id", document.get("project_id").toString());
+                                startActivity(i);
+                            }
+                        });
+
+                        if(document.contains("pics")) {
+                            Map<String, String> pics = (Map<String, String>) document.get("pics");
+                            List<String> picKeys = new ArrayList<>(pics.keySet());
+
+                            String path = picKeys.get(0);
+                            String filename = pics.get(path);
+                            //read(pic, path, filename);
+
+                        }
+
+                        t.addView(cd);
+                    }
+                }
+
+                else{
+                    Toast.makeText(ConstructorHome.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
 
 

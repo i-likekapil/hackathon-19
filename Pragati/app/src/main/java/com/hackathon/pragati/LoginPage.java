@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
@@ -26,6 +27,8 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.hackathon.pragati.SplashScreen.firebaseAuth;
@@ -130,12 +133,12 @@ public class LoginPage extends AppCompatActivity {
 
     public void confirmRegistration(View view) {
 
-        Toast.makeText(this, "Login Successful!", Toast.LENGTH_LONG).show();
-/*
+       // Toast.makeText(this, "Login Successful!", Toast.LENGTH_LONG).show();
+
 
         String code=((EditText)findViewById(R.id.editText3)).getText().toString();
         if(code.equals("")){
-            Toast.makeText(this, "OTP daalo pehle...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter OTP First...", Toast.LENGTH_SHORT).show();
             return;
         }
         PhoneAuthCredential credential;
@@ -167,8 +170,8 @@ public class LoginPage extends AppCompatActivity {
                                     .setDisplayName(name).build();
                             firebaseAuth.getCurrentUser().updateProfile(profileUpdates);
                             Toast.makeText(LoginPage.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-*/
-/*                            Map<String, Object> map = new HashMap<>();
+/*
+                           Map<String, Object> map = new HashMap<>();
                             map.put("name", name);
                             map.put("phone", phone);
                             map.put("type","user");
@@ -179,7 +182,7 @@ public class LoginPage extends AppCompatActivity {
                                     Toast.makeText(LoginPage.this, "User Successfully Created", Toast.LENGTH_SHORT).show();
                                 }
                             });
-*//*
+*/
 
 
 
@@ -194,7 +197,7 @@ public class LoginPage extends AppCompatActivity {
                     }
                 });
 
-*/
+
     }
 
     public void resend(View v){

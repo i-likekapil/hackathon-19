@@ -20,9 +20,10 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="16dp"
-            android:text="@string/heading"
+            android:text="Project Name"
+            android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,12 +32,12 @@
             android:id="@+id/imageView"
             android:layout_width="367dp"
             android:layout_height="136dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="5dp"
             android:contentDescription="@string/description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.103"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
             app:srcCompat="@drawable/pragati" />
 
         <TextView
@@ -45,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:text="@string/location"
+            android:text="Location : "
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageView" />
@@ -56,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="Status "
+            android:text="Status : "
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView4" />

@@ -4,20 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@drawable/yback"
     tools:context=".AddNewProject">
 
+    <TextView
+        android:id="@+id/add_pro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="#EED609"
+        android:elevation="5dp"
+        android:text="Add New Project"
+
+        android:textAlignment="center"
+        android:textSize="35sp"
+        android:textStyle="bold" />
+
     <ScrollView
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="40dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/projectName1"
@@ -124,11 +140,14 @@
 
             <Spinner
                 android:id="@+id/spinner"
-                android:gravity="center"
+                style="@android:style/Widget.Material.Light.Spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:background="@drawable/spinner"
-                android:layout_weight="1" />
+                android:gravity="center"
+                android:spinnerMode="dialog" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -138,10 +157,12 @@
                 <Spinner
                     android:id="@+id/spinner2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
+                    android:layout_height="match_parent"
                     android:background="@drawable/spinner"
-                    android:layout_weight="1" />
+                    android:foregroundGravity="center"
+                    android:gravity="center"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="gravity" />
 
 
             </LinearLayout>
@@ -283,36 +304,13 @@
     android:background="@drawable/spinner"
     android:layout_weight="1"
                             />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
 
                 <LinearLayout
                     android:id="@+id/photosL"
+                    android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
@@ -324,19 +322,25 @@
                         android:onClick="imagepicker"
                         app:srcCompat="@android:drawable/ic_input_add" />
                 </LinearLayout>
+            ///////////////////////////
+
             </HorizontalScrollView>
-
-
             <Button
                 android:id="@+id/put"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:onClick="put"
-
                 android:text="Add Project" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="invisible"
+                android:text="Add Project" />
+
         </LinearLayout>
 
     </ScrollView>
-
 </FrameLayout>

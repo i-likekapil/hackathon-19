@@ -26,6 +26,7 @@ public class SplashScreen extends AppCompatActivity {
     static FirebaseFirestore firestore;
     static StorageReference storageRef;
     static String appUser="none";
+    static Map<String,Object> appUserMap;
 
 
     @Override
@@ -39,7 +40,7 @@ public class SplashScreen extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
-        storageRef= FirebaseStorage.getInstance().getReference();//"gs://pragati-2ed92.appspot.com");
+        storageRef= FirebaseStorage.getInstance().getReferenceFromUrl("gs://pragati-2ed92.appspot.com");//"gs://pragati-2ed92.appspot.com");
 
         //new StateList().write();
         ProgressBar p=findViewById(R.id.progressBar);
@@ -56,6 +57,7 @@ public class SplashScreen extends AppCompatActivity {
                 } else {
                     String e=firebaseAuth.getCurrentUser().getEmail();
                     if(e.equals("")||e==null){
+                        appUserMap=null;
                         appUser="user";
                         Intent i = new Intent(SplashScreen.this, MainActivity.class);
                         startActivity(i);
@@ -65,12 +67,12 @@ public class SplashScreen extends AppCompatActivity {
                     firestore.collection("Admins").document(firebaseAuth.getCurrentUser().getEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            Map m=task.getResult().getData();
-                            if(m.get("type").toString().equals("admin"))
+                            appUserMap=task.getResult().getData();
+                            if(appUserMap.get("type").toString().equals("admin"))
                             {
                                 appUser="admin";
                                 Intent i = new Intent(SplashScreen.this, AdminHome.class);
-                                i.putExtra("verified",m.get("verified").toString());
+                                i.putExtra("verified",appUserMap.get("verified").toString());
                                 startActivity(i);
                                 finish();
                             }
@@ -78,7 +80,7 @@ public class SplashScreen extends AppCompatActivity {
                             {
                                 appUser="worker";
                                 Intent i = new Intent(SplashScreen.this, ConstructorHome.class);
-                                i.putExtra("verified",m.get("verified").toString());
+                                i.putExtra("verified",appUserMap.get("verified").toString());
                                 startActivity(i);
                                 finish();
                             }
