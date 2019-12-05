@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
@@ -225,6 +226,8 @@ public class ProjectHome extends AppCompatActivity {
         builder.show();
     }
 
+
+
     public static String getTodayDate() {
         Calendar c = Calendar.getInstance();
         int mm = (int) (c.get(Calendar.MONTH)) + 1;
@@ -316,7 +319,7 @@ public class ProjectHome extends AppCompatActivity {
             tupdL.setVisibility(View.GONE);
         else if (tupdL.getVisibility() == View.GONE)
             tupdL.setVisibility(View.VISIBLE);
-        show();
+        show("Updates");
 
     }
     public void viewcomment(View view) {
@@ -326,6 +329,7 @@ public class ProjectHome extends AppCompatActivity {
             tcomL.setVisibility(View.GONE);
         else if (tcomL.getVisibility() == View.GONE)
             tcomL.setVisibility(View.VISIBLE);
+        show("Comments");
     }
 
 
@@ -347,9 +351,15 @@ public class ProjectHome extends AppCompatActivity {
 
 
 
-    public  void show(){
+    public  void show(String s){
 
-        firestore.collection("Projects/"+prID.getText().toString()+"/Updates").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        final LinearLayout main;
+        if(s.equals("Updates"))
+        main=findViewById(R.id.updateLL);
+        else
+            main=findViewById(R.id.commentLL);
+
+        firestore.collection("Projects/"+prID.getText().toString()+"/"+s).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> tas) {
 
@@ -370,7 +380,6 @@ public class ProjectHome extends AppCompatActivity {
                     String []ar= time.toArray(new String[time.size()]);
                     msg = new ArrayList<String>(m.values());
 
-                    LinearLayout main=findViewById(R.id.updateLL);
                     CardView card=(CardView)inflater.inflate(R.layout.notif_card, main, false);
 
                     ConstraintLayout mainLay=(ConstraintLayout)card.getChildAt(0);

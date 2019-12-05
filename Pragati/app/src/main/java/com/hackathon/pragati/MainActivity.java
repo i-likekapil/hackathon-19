@@ -181,7 +181,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //NavigationUI.setupWithNavController(navigationView, navController);
 
 
-        String[] states = {"All", "Andhra_Pradesh", "Arunachal_Pradesh", "Assam", "Bihar", "Delhi_NCR", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal_Pradesh", "Jammu_and_Kashmir", "Jharkhand", "Karnataka", "Kerala", "Madhya_Pradesh",
+
+
+
+
+String[] states = {"All", "Andhra_Pradesh", "Arunachal_Pradesh", "Assam", "Bihar", "Delhi_NCR", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal_Pradesh", "Jammu_and_Kashmir", "Jharkhand", "Karnataka", "Kerala", "Madhya_Pradesh",
                 "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Rajasthan", "Punjab", "Sikkim", "Tamil_Nadu", "Telangana", "Tripura", "Uttar_Pradesh", "Uttarakhand", "West_Bengal"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner, states);
         stateSpinner.setAdapter(adapter);
@@ -200,6 +204,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
+
+
+
+
+
+
+
+
+
+
         citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -215,6 +229,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -223,12 +249,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+        || super.onSupportNavigateUp();
     }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -385,12 +440,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private void addComment(Object projectID, String cmnt) {
         Map<String,Object> text=new HashMap<>();
         text.put(firebaseAuth.getCurrentUser().getDisplayName(),cmnt);
         firestore.document("Projects/"+projectID+"/Comments/"+getTodayDate()).set(text, SetOptions.merge())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
+        @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
 
@@ -400,6 +479,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 });
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public void showCities(View v){
@@ -466,17 +557,36 @@ System.out.println("Local se hua READ " );
     }
 */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     Bitmap bit;
-    public void read(final ImageView dp,final String filename) {
+    public  void read(final ImageView dp,final String filename) {
         //if (path == null) {
             final long OO = 1024 * 1024;
             storageRef.child(filename).getBytes(OO).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                @Override
+            @Override
                 public void onSuccess(byte[] bytes) {
                     bit = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 
                     dp.setImageBitmap(bit);
-                    System.out.println("Online se hua READ " );
+            System.out.println("Online se hua READ " );
 
                     //firestore.document("faculty/" + FirebaseAuth.getInstance().getCurrentUser().getEmail()).update("img_path", saveToInternalStorage(bit,filename));
 
@@ -518,6 +628,16 @@ System.out.println("Local se hua READ " );
 
 */
 
+
+
+
+
+
+
+
+
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
@@ -531,6 +651,7 @@ System.out.println("Local se hua READ " );
 
             /*if(appUser.getType().equalsIgnoreCase("Admin"))
                 startActivity(new Intent(this,FacultyList.class));
+
             else toast(this,"You are not an Admin!");*/
             //facultyView(null);
 
@@ -544,7 +665,7 @@ System.out.println("Local se hua READ " );
             new AlertDialog.Builder(this)
                     .setTitle("Confirm Exit")
                     .setMessage("Are you sure you want to exit?")
-                    .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int whichButton) {
@@ -569,7 +690,7 @@ System.out.println("Local se hua READ " );
                         public void onClick(DialogInterface dialog, int whichButton) {
                             new AlertDialog.Builder(MainActivity.this)
                                     .setTitle("Confirm Sign Out")
-                                    .setMessage("Pakka bahar jana hai????\nSohl lo...")
+                                    .setMessage("Pakka bahar jana hai????\nSoch lo...")
                                     .setIcon(android.R.drawable.ic_dialog_alert)
                                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
@@ -589,6 +710,31 @@ System.out.println("Local se hua READ " );
         return true;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -596,87 +742,93 @@ System.out.println("Local se hua READ " );
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+
         }
     }
+            //////////----------------------image picker----------------------------
 
-    public void imagepicker(View view){
 
-        GalIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            public void imagepicker (View view){
 
-        startActivityForResult(Intent.createChooser(GalIntent, "Select Image From Gallery"), 2);
+                GalIntent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-    }
-    Uri uri;
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 0 && resultCode == RESULT_OK) {
-
-            ImageCropFunction();
-
-        } else if (requestCode == 2) {
-
-            if (data != null) {
-
-                uri = data.getData();
-                final InputStream imageStream;
-                try {
-                    imageStream = getContentResolver().openInputStream(uri);
-
-                    final Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
-
-                    bit=bitmap;
-                    ImageView imageView=findViewById(R.id.imageView);
-
-                    imageView.setImageBitmap(bitmap);
-                    writeImage(bit);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                startActivityForResult(Intent.createChooser(GalIntent, "Select Image From Gallery"), 2);
 
             }
-            else System.out.println("Yahan bhi gadbad hai");
-        } else if (requestCode == 1) {
+            Uri uri;
 
-            if (data != null) {
 
-                Bundle bundle = data.getExtras();
-
-                Bitmap bitmap = null;
-                try {
-                    bitmap = (Bitmap) bundle.getParcelable(String.valueOf(MediaStore.Images.Media.getBitmap(getContentResolver(), uri)));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                ImageView imageView=findViewById(R.id.imageView);
-
-                imageView.setImageBitmap(bitmap);
-                writeImage(bit);
-
-            }
-
-            else System.out.println("Yahan hai dikkat badi wali");
-        }
-    }
-
-    public void writeImage(Bitmap bit){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bit.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] datas = baos.toByteArray();
-        storageRef.child("fileName").putBytes(datas).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                //toast(MainActivity.this,"Photo Updated!");
-            }
-        });
-        //read(null,null,null);
-    }
+            protected void onActivityResult ( int requestCode, int resultCode, Intent data){
+                super.onActivityResult(requestCode, resultCode, data);
 
-    public void ImageCropFunction() {
+                if (requestCode == 0 && resultCode == RESULT_OK) {
+
+                    ImageCropFunction();
+
+                } else if (requestCode == 2) {
+
+                    if (data != null) {
+
+                        uri = data.getData();
+                        final InputStream imageStream;
+                        try {
+                            imageStream = getContentResolver().openInputStream(uri);
+
+                            final Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+
+                            bit = bitmap;
+                            ImageView imageView = findViewById(R.id.imageView);
+
+                            imageView.setImageBitmap(bitmap);
+                            writeImage(bit);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                    } else System.out.println("Yahan bhi gadbad hai");
+                } else if (requestCode == 1) {
+
+                    if (data != null) {
+
+                        Bundle bundle = data.getExtras();
+
+                        Bitmap bitmap = null;
+                        try {
+                            bitmap = (Bitmap) bundle.getParcelable(String.valueOf(MediaStore.Images.Media.getBitmap(getContentResolver(), uri)));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        ImageView imageView = findViewById(R.id.imageView);
+
+                        imageView.setImageBitmap(bitmap);
+                        writeImage(bit);
+
+                    } else System.out.println("Yahan hai dikkat badi wali");
+                }
+            }
+
+
+            //------------------------------write image -------------------------------
+
+
+            public void writeImage (Bitmap bit){
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bit.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] datas = baos.toByteArray();
+                storageRef.child("fileName").putBytes(datas).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        //toast(MainActivity.this,"Photo Updated!");
+                    }
+                });
+                //read(null,null,null);
+            }
+
+
+            public void ImageCropFunction () {
 
        /* // Image Crop Code
         try {
@@ -688,7 +840,7 @@ System.out.println("Local se hua READ " );
             System.out.println("Crop Intent me data type lagaaya ");
             CropIntent.putExtra("crop", "true");
             CropIntent.putExtra("outputX", 180);
-            CropIntent.putExtra("outputY", 180);
+        CropIntent.putExtra("outputY", 180);
             CropIntent.putExtra("aspectX", 3);
             CropIntent.putExtra("aspectY", 4);
             CropIntent.putExtra("scaleUpIfNeeded", true);
@@ -701,7 +853,22 @@ System.out.println("Local se hua READ " );
         } catch (Exception e) {
             System.out.println("Crop exception "+e.getMessage());
         }*/
-    }
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void liker(String user, final String pid){
         

@@ -156,6 +156,7 @@ import static com.hackathon.pragati.ProjectHome.getTodayDate;
 import static com.hackathon.pragati.SplashScreen.appUserMap;
 import static com.hackathon.pragati.SplashScreen.firebaseAuth;
 import static com.hackathon.pragati.SplashScreen.firestore;
+import static com.hackathon.pragati.SplashScreen.storageRef;
 
 
 public class ConstructorHome extends AppCompatActivity {
@@ -263,7 +264,7 @@ public class ConstructorHome extends AppCompatActivity {
                             //read(pic, path, filename);
 
                         }
-
+                        read(pic, document.get("project_id") + "001");
                         t.addView(cd);
                     }
                 } else {
@@ -314,6 +315,27 @@ public class ConstructorHome extends AppCompatActivity {
 */
     }
 
+
+    Bitmap bit;
+
+    public void read(final ImageView dp, final String filename) {
+        //if (path == null) {
+        final long OO = 1024 * 1024;
+        storageRef.child(filename).getBytes(OO).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                bit = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                dp.setImageBitmap(bit);
+                System.out.println("Online se hua READ ");
+
+                //firestore.document("faculty/" + FirebaseAuth.getInstance().getCurrentUser().getEmail()).update("img_path", saveToInternalStorage(bit,filename));
+
+            }
+        });
+
+
+    }
 }
 /*
 

@@ -141,6 +141,9 @@ public class LoginPage extends AppCompatActivity {
             Toast.makeText(this, "Enter OTP First...", Toast.LENGTH_SHORT).show();
             return;
         }
+        final ProgressDialog pd=new ProgressDialog(this);
+        pd.setMessage("Verifying...");
+        pd.show();
         PhoneAuthCredential credential;
         try {
             credential = PhoneAuthProvider.getCredential(mVerificationId, code);
@@ -154,6 +157,7 @@ public class LoginPage extends AppCompatActivity {
         if(credential==null)
         {
             Toast.makeText(this, "Unable to verify...\nPlease try later!", Toast.LENGTH_SHORT).show();
+            pd.dismiss();
             return;
         }
         firebaseAuth.signInWithCredential(credential)
@@ -162,6 +166,7 @@ public class LoginPage extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
 
+
                             String name=((EditText)(findViewById(R.id.inp_name ))).getText().toString().trim();
                             String phone="+91"+((EditText)(findViewById(R.id.inp_phone ))).getText().toString().trim();
 
@@ -169,6 +174,7 @@ public class LoginPage extends AppCompatActivity {
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                     .setDisplayName(name).build();
                             firebaseAuth.getCurrentUser().updateProfile(profileUpdates);
+                            pd.dismiss();
                             Toast.makeText(LoginPage.this, "Login Successful!", Toast.LENGTH_SHORT).show();
 /*
                            Map<String, Object> map = new HashMap<>();
@@ -201,8 +207,8 @@ public class LoginPage extends AppCompatActivity {
     }
 
     public void resend(View v){
-        CardView cv = findViewById(R.id.carDet);
-        CardView cv2 = findViewById(R.id.cardOTP);
+        CardView cv2 = findViewById(R.id.carDet);
+        CardView cv = findViewById(R.id.cardOTP);
         cv.setVisibility(View.GONE);
         cv2.setVisibility(View.VISIBLE);
 

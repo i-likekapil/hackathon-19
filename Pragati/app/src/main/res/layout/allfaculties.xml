@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginTop="10dp"
+    android:paddingStart="2dp"
+    android:paddingLeft="2dp"
+    android:paddingTop="5dp"
+    android:paddingEnd="2dp"
+    android:paddingRight="2dp"
+    android:visibility="visible"
+    app:cardBackgroundColor="@color/prMain"
+    app:contentPadding="2dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/img_dashboard"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="10dp"
+            android:visibility="visible"
+            app:cardBackgroundColor="#ACEE5F"
+            app:cardCornerRadius="40dp"
+            app:cardPreventCornerOverlap="true"
+            app:contentPadding="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="clip_horizontal|center_horizontal"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:background="@drawable/imgcir"
+                android:cropToPadding="true"
+                android:foreground="@drawable/imgcir"
+                android:onClick="imagepicker"
+                android:outlineProvider="background"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/passport" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView81"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="HIMANSHU YADAV"
+            android:textAlignment="center"
+            android:textColor="@color/prMain"
+            android:textSize="25dp"
+            app:layout_constraintStart_toEndOf="@+id/img_dashboard"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:text="admin@accgzb.in"
+            android:textColor="@color/prMain"
+            android:textSize="18dp"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@+id/img_dashboard"
+            app:layout_constraintTop_toBottomOf="@+id/textView81" />
+
+        <TextView
+            android:id="@+id/textView83"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text=">"
+            android:textAlignment="textStart"
+            android:textColor="@color/prMain"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+

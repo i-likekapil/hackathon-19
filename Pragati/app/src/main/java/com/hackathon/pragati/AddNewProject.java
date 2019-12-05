@@ -228,7 +228,15 @@ public class AddNewProject extends AppCompatActivity {
             return;
         }
 
-        final ProgressDialog pd=new ProgressDialog(this);
+
+
+
+
+
+
+
+
+final ProgressDialog pd=new ProgressDialog(this);
         pd.setMessage("Uploading Data");
         pd.show();
         final Map<String,Object> project=new HashMap<>();
@@ -253,6 +261,10 @@ public class AddNewProject extends AppCompatActivity {
         project.put("dislikes",0);
         project.put("video","https://"+vd);
         project.put("constructor",cons);
+
+
+
+
 
 
 
@@ -285,6 +297,7 @@ public class AddNewProject extends AppCompatActivity {
                     shortd.setText("");
                     longd.setText("");
                     strt.setText("");
+                    vdeo.setText("");
                     head.setText("");
                     statusSpinner.setSelection(0);
 
@@ -334,12 +347,23 @@ public class AddNewProject extends AppCompatActivity {
         finish();
     }
 
+
+
+
+
+
+
+
+
+
+
+
     public void add_cities(View v){
 
         String city=citySpinner.getSelectedItem().toString();
         if(city.equals("Select City"))
         {
-            Toast.makeText(this, "Select City!!", Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, "Select City!!", Toast.LENGTH_SHORT).show();
             return;
         }
         selected_cities.add(city);
@@ -355,6 +379,22 @@ public class AddNewProject extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(GalIntent, "Select Image From Gallery"), 2);
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     Uri uri;Bitmap bit;
 
     @Override
@@ -413,6 +453,15 @@ public class AddNewProject extends AppCompatActivity {
             else System.out.println("Yahan hai dikkat badi wali");
         }
     }
+
+
+
+
+
+
+
+
+
     int i=0;
     public void writeImage(Bitmap bit,String name){
         try {

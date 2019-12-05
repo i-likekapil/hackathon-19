@@ -48,7 +48,17 @@ public class AdminHome extends AppCompatActivity {
     }
 
 
+    public void seeAdmins(View v){
+        Intent i=new Intent(this, ListActivity.class);
+        i.putExtra("type","admin");
+        startActivity(i);
+    }
 
+    public void seeConstructors(View v){
+        Intent i=new Intent(this, ListActivity.class);
+        i.putExtra("type","constructor");
+        startActivity(i);
+    }
 
     public void perform() {
 
@@ -60,11 +70,6 @@ public class AdminHome extends AppCompatActivity {
         org.setText(document.get("pos").toString());
         TextView pos = findViewById(R.id.location);
         pos.setText(document.get("org").toString());
-
-
-
-
-
     }
 
 }
