@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     //liker(firebaseAuth.getCurrentUser().getDisplayName(),document.get("project_id").toString());
 
                                     if (dislike.isSelected()) {
-                                        dislike.setImageResource(R.drawable.ic_thumb_up_black_24dp);
+                                        dislike.setImageResource(R.drawable.ic_thumb_down_not_select);
                                         dislike.setSelected(false);
                                         likerundisliker(firebaseAuth.getCurrentUser().getDisplayName(),document.get("project_id").toString());
                                     }
@@ -559,7 +559,7 @@ System.out.println("Local se hua READ " );
             //startActivity(new Intent(this,AboutView.class));
 
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.navy_send) {
             new AlertDialog.Builder(this)
                     .setTitle("Confirm Sign Out")
                     .setMessage("Are you sure you want to SignOut?")
@@ -567,15 +567,25 @@ System.out.println("Local se hua READ " );
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            firebaseAuth.signOut();
-                            startActivity(new Intent(MainActivity.this, LoginPage.class));
-                            finish();
-                        }})
+                            new AlertDialog.Builder(MainActivity.this)
+                                    .setTitle("Confirm Sign Out")
+                                    .setMessage("Pakka bahar jana hai????\nSohl lo...")
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+                                            firebaseAuth.signOut();
+                                            startActivity(new Intent(MainActivity.this, LoginPage.class));
+                                            finish();
+                                        }})
+                                    .setNegativeButton(android.R.string.no, null).show();
+                       }})
                     .setNegativeButton(android.R.string.no, null).show();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        Toast.makeText(this, "YYYYaaaahooooo", Toast.LENGTH_SHORT).show();
         return true;
     }
 

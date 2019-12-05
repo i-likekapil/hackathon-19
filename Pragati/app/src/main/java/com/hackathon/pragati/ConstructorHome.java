@@ -151,6 +151,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.annotation.Nullable;
 
+import static com.hackathon.pragati.ProjectHome.getNowTimeMillis;
+import static com.hackathon.pragati.ProjectHome.getTodayDate;
 import static com.hackathon.pragati.SplashScreen.appUserMap;
 import static com.hackathon.pragati.SplashScreen.firebaseAuth;
 import static com.hackathon.pragati.SplashScreen.firestore;
@@ -165,7 +167,7 @@ public class ConstructorHome extends AppCompatActivity {
         perform();
     }
 
-    public void perform(){
+    public void perform() {
 
         Map document = appUserMap;
 
@@ -177,15 +179,15 @@ public class ConstructorHome extends AppCompatActivity {
         pos.setText(document.get("org").toString());
 
 
-        String name=firebaseAuth.getCurrentUser().getEmail();
+        String name = firebaseAuth.getCurrentUser().getEmail();
         final LinearLayout t = findViewById(R.id.tt);
         t.removeAllViews();
         final LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        firestore.collection("Projects").whereEqualTo("constructor",name).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firestore.collection("Projects").whereEqualTo("constructor", name).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     List<DocumentSnapshot> documents = task.getResult().getDocuments();
                     for (final DocumentSnapshot document : documents) {
                         CardView cd = (CardView) inflater.inflate(R.layout.prcard, t, false);
@@ -193,7 +195,7 @@ public class ConstructorHome extends AppCompatActivity {
                         TextView tv1 = (TextView) k.getChildAt(0);
                         tv1.setText(document.get("project_name").toString());
 
-                        ImageView main= (ImageView) k.getChildAt(1);
+                        ImageView main = (ImageView) k.getChildAt(1);
                         TextView tv2 = (TextView) k.getChildAt(2);
                         tv2.setText(tv2.getText() + " : " + document.get("area").toString());
                         TextView tv3 = (TextView) k.getChildAt(3);
@@ -208,12 +210,15 @@ public class ConstructorHome extends AppCompatActivity {
                         //                      String photoFile=xdocument.get("photoMainFile").toString();
 
                         //                    read(main,photoPath,photoFile);
-                        final ImageView pic= (ImageView) k.getChildAt(1);
-                        final ImageView like= (ImageView) k.getChildAt(4);
-                        final ImageView dislike= (ImageView) k.getChildAt(5);
-                        final ImageView comment= (ImageView) k.getChildAt(6);
-                        final EditText cmntTxt=(EditText)k.getChildAt(7);
-                        final ImageView send= (ImageView) k.getChildAt(8);
+                        final ImageView pic = (ImageView) k.getChildAt(1);
+                        final ImageView like = (ImageView) k.getChildAt(4);
+                        final ImageView dislike = (ImageView) k.getChildAt(5);
+                        final ImageView comment = (ImageView) k.getChildAt(6);
+                        final EditText cmntTxt = (EditText) k.getChildAt(7);
+                        final ImageView send = (ImageView) k.getChildAt(8);
+
+                        like.setVisibility(View.GONE);
+                        dislike.setVisibility(View.GONE);
 
 
                         comment.setOnClickListener(new View.OnClickListener() {
@@ -228,13 +233,15 @@ public class ConstructorHome extends AppCompatActivity {
                         send.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                String cmnt=cmntTxt.getText().toString();
-                                if(cmnt.equals("")){
+                                String cmnt = cmntTxt.getText().toString();
+                                if (cmnt.equals("")) {
                                     Toast.makeText(ConstructorHome.this, "Enter Comment First", Toast.LENGTH_SHORT).show();
                                 }
 
+                                update(document.get("project_id").toString(), cmnt);
+
                                 //addComment(document.get("project_id"),cmnt);
-                                cmntTxt.setText("");
+                                //cmntTxt.setText("");
                             }
                         });
 
@@ -247,7 +254,7 @@ public class ConstructorHome extends AppCompatActivity {
                             }
                         });
 
-                        if(document.contains("pics")) {
+                        if (document.contains("pics")) {
                             Map<String, String> pics = (Map<String, String>) document.get("pics");
                             List<String> picKeys = new ArrayList<>(pics.keySet());
 
@@ -259,20 +266,55 @@ public class ConstructorHome extends AppCompatActivity {
 
                         t.addView(cd);
                     }
-                }
-
-                else{
+                } else {
                     Toast.makeText(ConstructorHome.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
+    public void update(final String prID, final String cmnt) {
 
+        String x = cmnt;
+        Map<String, Object> text = new HashMap<>();
+        text.put(getNowTimeMillis(), x);
+        firestore.document("Projects/" + prID + "/Updates/" + getTodayDate()).set(text, SetOptions.merge())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+
+                            Toast.makeText(ConstructorHome.this, "Updated ;)", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(ConstructorHome.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+/*
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setTitle("Update");
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+        builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
+*/
+    }
 
 }
-
-
 /*
 
 public class MainActivity extends AppCompatActivity

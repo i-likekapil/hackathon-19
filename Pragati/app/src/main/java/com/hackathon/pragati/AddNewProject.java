@@ -44,7 +44,7 @@ import java.util.Map;
 
 public class AddNewProject extends AppCompatActivity {
 
-    EditText prname,prid,area,strt,end,web,typ,budgetu,budgeta,shortd,longd,head;
+    EditText prname,prid,area,strt,end,web,typ,budgetu,budgeta,shortd,longd,head,vdeo;
     List<String> selected_cities;
     Spinner stateSpinner,citySpinner,statusSpinner,consSpinner;
     private Intent GalIntent;
@@ -72,6 +72,7 @@ public class AddNewProject extends AppCompatActivity {
         statusSpinner=findViewById(R.id.spinner3);
         citySpinner=findViewById(R.id.spinner2);
         photosL=findViewById(R.id.photosL);
+        vdeo=findViewById(R.id.video);
         budgeta=findViewById(R.id.projectBudgetUsed);
         budgetu=findViewById(R.id.projectBudget);
         shortd=findViewById(R.id.projectDesShort);
@@ -149,6 +150,7 @@ public class AddNewProject extends AppCompatActivity {
         String shd=shortd.getText().toString();
         String lgd=longd.getText().toString();
         String str=strt.getText().toString();
+        String vd=vdeo.getText().toString();
 
         if(pname.equals("")||pname==null)
         {
@@ -177,11 +179,11 @@ public class AddNewProject extends AppCompatActivity {
             Toast.makeText(this, "Enter Project End date", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(we.equals("")||we==null)
+        /*if(we.equals("")||we==null)
         {
             Toast.makeText(this, "Enter Project Website", Toast.LENGTH_SHORT).show();
             return;
-        }
+        }*/
 
         if(bugu.equals("")||bugu==null)
         {
@@ -237,10 +239,11 @@ public class AddNewProject extends AppCompatActivity {
         project.put("cities",selected_cities);
         project.put("status",stat);
         project.put("project_head",hd);
+        project.put("last_update",stat);
         project.put("area",are);
         project.put("end_date",en);
         project.put("start_date",str);
-        project.put("website",we);
+        project.put("website","https://"+we);
         project.put("type",ty);
         project.put("budget_used",bugu);
         project.put("budget_allocated",buga);
@@ -248,6 +251,7 @@ public class AddNewProject extends AppCompatActivity {
         project.put("long_description",lgd);
         project.put("likes",0);
         project.put("dislikes",0);
+        project.put("video","https://"+vd);
         project.put("constructor",cons);
 
 

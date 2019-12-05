@@ -78,7 +78,7 @@ public class SplashScreen extends AppCompatActivity {
                             }
                             else
                             {
-                                appUser="worker";
+                                appUser="constructor";
                                 Intent i = new Intent(SplashScreen.this, ConstructorHome.class);
                                 i.putExtra("verified",appUserMap.get("verified").toString());
                                 startActivity(i);
